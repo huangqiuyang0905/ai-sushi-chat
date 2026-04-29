@@ -5,38 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI苏轼 - 穿越时空的对话 (API版)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel=“stylesheet”>
     <script>
         tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#5D4037',
-                        secondary: '#C9B084',
-                        accent: '#8B6914',
-                        light: '#FDFBF5',
-                        dark: '#3E2723',
-                        paper: '#FAF6F0',
-                        ink: '#2D2417',
-                        gold: '#D4AF37',
-                        ivory: '#FFFFF0',
-                        sepia: '#704214'
+            主题: {
+                扩展: {
+                    颜色: {
+                        主色: '#5D4037',
+                        次色: '#C9B084',
+                        强调: '#8B6914',
+                        浅色: '#FDFBF5',
+                        深色: '#3E2723',
+                        纸张: '#FAF6F0',
+                        墨水: '#2D2417',
+                        金色: '#D4AF37',
+                        象牙色: '#FFFFF0',
+                        棕褐色: '#704214'
                     },
                     fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                        serif: ['"Noto Serif SC"', 'SimSun', 'STSong', 'serif'],
-                        cursive: ['"Ma Shan Zheng"', 'cursive'],
-                        song: ['"Noto Serif SC"', 'SimSun', 'serif'],
+                        无衬线: ['Inter', 'system-ui', 'sans-serif'],
+                        衬线: ['“Noto Serif SC”', 'SimSun', 'STSong', '衬线'],
+                        草书: ['"马山正"', '草书'],
+                        宋体: ['“Noto Serif SC”', '宋体', '衬线'],
                         kai: ['"KaiTi"', '"STKaiti"', 'serif']
                     },
                     boxShadow: {
-                        'elegant': '0 8px 32px rgba(93, 64, 55, 0.12)',
-                        'hover': '0 12px 48px rgba(93, 64, 55, 0.18)',
-                        'inner-light': 'inset 0 2px 4px 0 rgba(255, 255, 255, 0.06)',
-                        'text': '0 2px 4px rgba(0, 0, 0, 0.1)'
+                        '优雅': '0 8px 32px rgba(93, 64, 55, 0.12)',
+                        '悬停': '0 12px 48px rgba(93, 64, 55, 0.18)',
+                        '内光': 'inset 0 2px 4px 0 rgba(255, 255, 255, 0.06)',
+                        '文字': '0 2px 4px rgba(0, 0, 0, 0.1)'
                     },
                     backgroundImage: {
-                        'paper-texture': 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z\' fill=\'%235d4037\' fill-opacity=\'0.03\' fill-rule=\'evenodd\'/%3E%3C/svg%3E")'
+                        '纸纹': 'url("data:image/svg+xml,&lt;svg width=\'100\'height=\'100\'viewBox=\'0 0 100 100\'xmlns=\'http://www.w3.org/2000/svg\'&gt;&lt;path d=\'M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 7 1.343 7 7 7zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 7 1.343 7 7 7zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 7 1.343 7 7 7zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 7 1.343 7 7 7zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 7 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 7 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 7 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 7 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 7 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 7 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 7 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 7 0.895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-22 .895 2 2 2z\'fill=\'%235d4037\'fill-opacity=\'0.03\'fill-rule=\'evenodd\'/&gt;&lt;/svg&gt;")'
                     }
                 }
             }
@@ -44,7 +44,7 @@
     </script>
     <!-- 引入Google字体 -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style type="text/tailwindcss">
+    <样式 type="text/tailwindcss">
         @layer utilities {
             .scrollbar-hide::-webkit-scrollbar {
                 display: none;
