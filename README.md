@@ -3,311 +3,448 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI苏轼 - 穿越时空的对话 (API版)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#5D4037',
-                        secondary: '#C9B084',
-                        accent: '#8B6914',
-                        light: '#FDFBF5',
-                        dark: '#3E2723',
-                        paper: '#FAF6F0',
-                        ink: '#2D2417',
-                        gold: '#D4AF37',
-                        ivory: '#FFFFF0',
-                        sepia: '#704214'
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                        serif: ['"Noto Serif SC"', 'SimSun', 'STSong', 'serif'],
-                        cursive: ['"Ma Shan Zheng"', 'cursive'],
-                        song: ['"Noto Serif SC"', 'SimSun', 'serif'],
-                        kai: ['"KaiTi"', '"STKaiti"', 'serif']
-                    },
-                    boxShadow: {
-                        'elegant': '0 8px 32px rgba(93, 64, 55, 0.12)',
-                        'hover': '0 12px 48px rgba(93, 64, 55, 0.18)',
-                        'inner-light': 'inset 0 2px 4px 0 rgba(255, 255, 255, 0.06)',
-                        'text': '0 2px 4px rgba(0, 0, 0, 0.1)'
-                    },
-                    backgroundImage: {
-                        'paper-texture': 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z\' fill=\'%235d4037\' fill-opacity=\'0.03\' fill-rule=\'evenodd\'/%3E%3C/svg%3E")'
-                    }
-                }
+    <title>AI苏轼 - 与东坡先生对话</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'SimSun', 'STSong', 'Microsoft YaHei', serif;
+        }
+        
+        body {
+            background-color: #f5f1e8;
+            color: #333;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23a1887f' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+            background-color: #fefcf7;
+        }
+        
+        /* 左侧对话区域 */
+        .chat-area {
+            flex: 3;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            background-color: #fefcf7;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chat-area::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M37.5 37.5c-10.4 0-18.8 8.4-18.8 18.8 0 10.4 8.4 18.8 18.8 18.8 10.4 0 18.8-8.4 18.8-18.8 0-10.4-8.4-18.8-18.8-18.8zm125 0c-10.4 0-18.8 8.4-18.8 18.8 0 10.4 8.4 18.8 18.8 18.8 10.4 0 18.8-8.4 18.8-18.8 0-10.4-8.4-18.8-18.8-18.8zm0 125c-10.4 0-18.8 8.4-18.8 18.8 0 10.4 8.4 18.8 18.8 18.8 10.4 0 18.8-8.4 18.8-18.8 0-10.4-8.4-18.8-18.8-18.8zM37.5 162.5c-10.4 0-18.8 8.4-18.8 18.8 0 10.4 8.4 18.8 18.8 18.8 10.4 0 18.8-8.4 18.8-18.8 0-10.4-8.4-18.8-18.8-18.8z' fill='%23d7ccc8' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.4;
+            z-index: 0;
+        }
+        
+        .chat-header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #d4a574;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .chat-header h1 {
+            color: #8b4513;
+            font-size: 2.2rem;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chat-header p {
+            color: #a0522d;
+            font-size: 1.1rem;
+            margin-top: 8px;
+        }
+        
+        .chat-history {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 10px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            max-width: 85%;
+        }
+        
+        .user-message {
+            margin-left: auto;
+            flex-direction: row-reverse;
+        }
+        
+        .message-content {
+            padding: 15px 20px;
+            border-radius: 20px;
+            line-height: 1.6;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .user-message .message-content {
+            background-color: #e8f5e9;
+            border-bottom-right-radius: 5px;
+            color: #2e7d32;
+        }
+        
+        .ai-message .message-content {
+            background-color: #fff8e1;
+            border-bottom-left-radius: 5px;
+            color: #5d4037;
+            border-left: 4px solid #d4a574;
+        }
+        
+        .message-sender {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: #795548;
+        }
+        
+        .user-message .message-sender {
+            text-align: right;
+            color: #388e3c;
+        }
+        
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            flex-shrink: 0;
+        }
+        
+        .user-avatar {
+            background-color: #81c784;
+            color: #fff;
+        }
+        
+        .ai-avatar {
+            background-color: #d4a574;
+            color: #5d4037;
+        }
+        
+        .input-area {
+            display: flex;
+            position: relative;
+            z-index: 1;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 5px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #d4a574;
+        }
+        
+        #messageInput {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            resize: none;
+            min-height: 60px;
+            max-height: 150px;
+            outline: none;
+            background-color: #fff;
+            color: #5d4037;
+        }
+        
+        #sendButton {
+            background-color: #d4a574;
+            color: #5d4037;
+            border: none;
+            border-radius: 8px;
+            padding: 0 30px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        #sendButton:hover {
+            background-color: #b38b5d;
+            color: #fff;
+        }
+        
+        #sendButton:disabled {
+            background-color: #ccc;
+            color: #999;
+            cursor: not-allowed;
+        }
+        
+        /* 右侧介绍区域 */
+        .intro-area {
+            flex: 1;
+            background-color: #f5f1e8;
+            padding: 30px 25px;
+            border-left: 2px solid #d4a574;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .intro-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .intro-header h2 {
+            color: #8b4513;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .intro-header h2::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 10%;
+            width: 80%;
+            height: 2px;
+            background-color: #d4a574;
+        }
+        
+        .intro-content {
+            flex: 1;
+            line-height: 1.8;
+            color: #5d4037;
+        }
+        
+        .intro-content p {
+            margin-bottom: 20px;
+            text-indent: 2em;
+        }
+        
+        .poem-box {
+            background-color: rgba(255, 253, 231, 0.7);
+            border-left: 4px solid #d4a574;
+            padding: 20px;
+            margin: 25px 0;
+            font-style: italic;
+            color: #795548;
+        }
+        
+        .poem-box p {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .intro-footer {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #d4a574;
+            text-align: center;
+            color: #8b4513;
+            font-size: 0.9rem;
+        }
+        
+        /* 加载动画 */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 10px;
+            color: #8b4513;
+        }
+        
+        .loading span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #d4a574;
+            margin: 0 3px;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        
+        .loading span:nth-child(1) { animation-delay: -0.32s; }
+        .loading span:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .intro-area {
+                border-left: none;
+                border-top: 2px solid #d4a574;
+            }
+            
+            .message {
+                max-width: 95%;
             }
         }
-    </script>
-    <!-- 引入Google字体 -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .scrollbar-hide::-webkit-scrollbar {
-                display: none;
-            }
-            .scrollbar-hide {
-                -ms-overflow-style: none;
-                scrollbar-width: none;
-            }
-            .chat-bubble-user {
-                position: relative;
-                border-radius: 24px 24px 12px 24px;
-                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                background: linear-gradient(145deg, #ffffff, #f8f9fa);
-            }
-            .chat-bubble-user:hover {
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-                transform: translateY(-2px);
-            }
-            .chat-bubble-user::after {
-                content: '';
-                position: absolute;
-                bottom: 12px;
-                right: -16px;
-                width: 0;
-                height: 0;
-                border-left: 16px solid #ffffff;
-                border-top: 10px solid transparent;
-                border-bottom: 10px solid transparent;
-                filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.05));
-            }
-            .chat-bubble-ai {
-                position: relative;
-                border-radius: 24px 24px 24px 12px;
-                box-shadow: 0 4px 16px rgba(93, 64, 55, 0.12);
-                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                background: linear-gradient(145deg, #C9B084, #D4C094);
-            }
-            .chat-bubble-ai:hover {
-                box-shadow: 0 8px 24px rgba(93, 64, 55, 0.18);
-                transform: translateY(-2px);
-            }
-            .chat-bubble-ai::after {
-                content: '';
-                position: absolute;
-                bottom: 12px;
-                left: -16px;
-                width: 0;
-                height: 0;
-                border-right: 16px solid #C9B084;
-                border-top: 10px solid transparent;
-                border-bottom: 10px solid transparent;
-                filter: drop-shadow(-2px 2px 4px rgba(0, 0, 0, 0.05));
-            }
-            .fade-in {
-                animation: fadeIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-            }
-            @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(20px) scale(0.96); }
-                to { opacity: 1; transform: translateY(0) scale(1); }
-            }
-            .slide-in {
-                animation: slideIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            }
-            @keyframes slideIn {
-                from { opacity: 0; transform: translateX(-30px); }
-                to { opacity: 1; transform: translateX(0); }
-            }
-            .ink-splash {
-                position: relative;
-                overflow: hidden;
-            }
-            .ink-splash::before {
-                content: '';
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                width: 0;
-                height: 0;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.4);
-                transform: translate(-50%, -50%);
-                transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
-                            height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-            .ink-splash:active::before {
-                width: 400px;
-                height: 400px;
-            }
-            .text-shadow {
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-            }
-            .hover-scale {
-                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-            .hover-scale:hover {
-                transform: scale(1.03);
-            }
-            .gold-gradient {
-                background: linear-gradient(135deg, #D4AF37 0%, #F2D272 50%, #D4AF37 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-            }
-            .bg-paper-texture {
-                background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%235d4037' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
-            }
-            .backdrop-blur {
-                backdrop-filter: blur(8px);
-                -webkit-backdrop-filter: blur(8px);
-            }
-            .glass-effect {
-                background: rgba(250, 246, 240, 0.85);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-            }
-            .card-hover {
-                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-            .card-hover:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 16px 48px rgba(93, 64, 55, 0.2);
-            }
-            .input-focus {
-                transition: all 0.3s ease;
-            }
-            .input-focus:focus {
-                border-color: theme('colors.gold');
-                box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
-            }
-            .btn-primary {
-                background: linear-gradient(135deg, theme('colors.primary'), #795548);
-                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-            .btn-primary:hover {
-                background: linear-gradient(135deg, #795548, theme('colors.primary'));
-                transform: translateY(-2px);
-            }
-            .btn-primary:active {
-                transform: translateY(0);
-            }
-            .typing-dots {
-                display: inline-flex;
-                align-items: center;
-            }
-            .typing-dots div {
-                width: 8px;
-                height: 8px;
-                margin: 0 2px;
-                background-color: theme('colors.dark');
-                border-radius: 50%;
-                animation: typing 1.4s infinite ease-in-out both;
-            }
-            .typing-dots div:nth-child(1) {
-                animation-delay: -0.32s;
-            }
-            .typing-dots div:nth-child(2) {
-                animation-delay: -0.16s;
-            }
-            @keyframes typing {
-                0%, 80%, 100% { 
-                    transform: scale(0);
-                    opacity: 0.5;
-                }
-                40% { 
-                    transform: scale(1);
-                    opacity: 1;
-                }
-            }
+        
+        /* 古风装饰元素 */
+        .bamboo-decoration {
+            position: absolute;
+            width: 150px;
+            height: 100%;
+            right: 0;
+            top: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 500'%3E%3Cpath d='M50,0 Q60,30 50,60 Q40,90 50,120 Q60,150 50,180 Q40,210 50,240 Q60,270 50,300 Q40,330 50,360 Q60,390 50,420 Q40,450 50,480' stroke='%234a7c59' stroke-width='8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            opacity: 0.1;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .chat-history::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .chat-history::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .chat-history::-webkit-scrollbar-thumb {
+            background: #d4a574;
+            border-radius: 10px;
+        }
+        
+        .chat-history::-webkit-scrollbar-thumb:hover {
+            background: #b38b5d;
+        }
+        
+        .clear-btn {
+            background-color: transparent;
+            border: 1px solid #d4a574;
+            color: #8b4513;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        
+        .clear-btn:hover {
+            background-color: #d4a574;
+            color: white;
+        }
+        
+        .tips {
+            font-size: 0.9rem;
+            color: #a1887f;
+            margin-top: 10px;
+            text-align: center;
         }
     </style>
 </head>
-<body class="bg-light min-h-screen font-serif text-ink antialiased">
-    <!-- 背景图层 -->
-    <div class="fixed inset-0 -z-10 bg-cover bg-center opacity-15 transition-opacity duration-1000 hover:opacity-20" style="background-image: url('https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/12b854c29e9d4ff2b00eac8a55229b63~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202604290303450F5A2C2155AF05523EEC&rrcfp=f06b921b&x-expires=1779995051&x-signature=MiZjAqFgVUgntboK0WkL2gtoWcU%3D')"></div>
-    <!-- 渐变叠加层 -->
-    <div class="fixed inset-0 -z-5 bg-gradient-to-b from-light/90 via-light/85 to-light/95"></div>
-    
-    <!-- 主容器 -->
-    <div class="container mx-auto px-4 py-8 max-w-4xl">
-        <!-- 顶部介绍 -->
-        <header class="text-center mb-10 slide-in">
-            <div class="text-center mb-3">
-                <h1 class="text-6xl md:text-7xl font-bold gold-gradient font-cursive text-shadow tracking-wide">
-                    AI苏轼
-                </h1>
+<body>
+    <div class="container">
+        <!-- 左侧对话区域 -->
+        <div class="chat-area">
+            <div class="bamboo-decoration"></div>
+            
+            <div class="chat-header">
+                <h1>AI苏轼 · 数字人格</h1>
+                <p>与东坡先生进行跨越时空的对话</p>
             </div>
-            <div class="w-32 h-1.5 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 rounded-full opacity-90"></div>
-            <p class="text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed font-song tracking-wide">
-                本程序基于苏轼的旷达哲学构建，通过AI技术与您进行心灵对话，
-                以东坡先生的智慧回应当代人的困惑。
-            </p>
-        </header>
-        
-        <!-- 对话区域 -->
-        <div class="glass-effect rounded-3xl shadow-elegant overflow-hidden border border-secondary/30 bg-paper-texture card-hover">
-            <!-- 对话历史 -->
-            <div id="chat-history" class="h-[60vh] overflow-y-auto scrollbar-hide p-8 bg-paper/90">
-                <!-- 初始消息 -->
-                <div class="flex mb-6 fade-in">
-                    <div class="flex-shrink-0 mr-4">
-                        <div class="w-14 h-14 rounded-full bg-primary flex items-center justify-center text-white shadow-lg border-2 border-secondary/50 hover:scale-105 transition-transform duration-300">
-                            <span class="text-2xl font-bold font-kai">苏</span>
-                        </div>
+            
+            <div class="chat-history" id="chatHistory">
+                <!-- 初始欢迎消息 -->
+                <div class="message ai-message">
+                    <div class="message-avatar ai-avatar">
+                        <i class="fas fa-user-tie"></i>
                     </div>
-                    <div class="chat-bubble-ai bg-secondary p-6 max-w-[80%]">
-                        <p class="text-dark">
-                            老夫苏轼在此，久等了。你我虽相隔千年，却可共话人生。有何困惑，尽管道来。
-                        </p>
+                    <div class="message-content">
+                        <div class="message-sender">东坡先生</div>
+                        吾乃东坡居士苏轼，字子瞻。尔等有何困惑，不妨道来。人生如逆旅，我亦是行人，且与尔共话这风雨晴明。
                     </div>
+                </div>
+                
+                <div class="tips">
+                    <i class="fas fa-lightbulb"></i> 你可以称呼我为"东坡先生"、"子瞻兄"或"苏轼先生"
                 </div>
             </div>
             
-            <!-- 输入区域 -->
-            <div class="border-t border-secondary/30 p-8 bg-white/80 backdrop-blur">
-                <form id="chat-form" class="flex items-center gap-4">
-                    <input 
-                        type="text" 
-                        id="user-input" 
-                        class="flex-grow px-6 py-4 rounded-l-2xl border-2 border-secondary/50 focus:outline-none input-focus text-lg font-song" 
-                        placeholder="请输入您的问题..."
-                    >
-                    <button 
-                        type="submit" 
-                        id="send-button"
-                        class="btn-primary text-white px-10 py-4 rounded-r-2xl transition-all duration-300 ink-splash shadow-lg hover:shadow-xl font-medium text-lg"
-                    >
-                        <i class="fa fa-paper-plane mr-2"></i>发送
-                    </button>
-                </form>
+            <div class="loading" id="loadingIndicator">
+                <span></span>
+                <span></span>
+                <span></span>
+                东坡先生正在思考...
             </div>
+            
+            <div class="input-area">
+                <textarea id="messageInput" placeholder="在此输入您的问题或困惑，按Ctrl+Enter发送..." rows="3"></textarea>
+                <button id="sendButton">发送</button>
+            </div>
+            
+            <button class="clear-btn" id="clearButton">
+                <i class="fas fa-trash-alt"></i> 清空对话
+            </button>
         </div>
         
-        <!-- 底部信息 -->
-        <footer class="mt-10 text-center text-gray-600">
-            <p class="font-song text-base">
-                <span class="text-primary font-medium">以东坡先生之智慧，解当代人生之困惑</span> | 
-                <span id="api-status" class="text-green-600 font-medium">腾讯云API已配置</span>
-            </p>
-        </footer>
-    </div>
-
-
-
-    <!-- 状态指示器 -->
-    <div id="status-indicator" class="fixed bottom-8 right-8 px-5 py-3 rounded-full text-sm text-white bg-gray-800 opacity-0 transition-all duration-500 shadow-xl backdrop-blur">
-        就绪
+        <!-- 右侧介绍区域 -->
+        <div class="intro-area">
+            <div class="intro-header">
+                <h2>AI苏轼介绍</h2>
+            </div>
+            
+            <div class="intro-content">
+                <p>本程序AI基于苏轼的旷达哲学构建，旨在与您进行心灵对话。AI苏轼以北宋文学家苏轼（苏东坡）的口吻、思想与文风与您交流。</p>
+                
+                <p>AI苏轼的核心人格特质：</p>
+                <ul>
+                    <li><strong>旷达从容</strong>：深谙"回首向来萧瑟处，归去，也无风雨也无晴"的豁达</li>
+                    <li><strong>接地气，善用比喻</strong>：常以自然景物、生活琐事作比，化大道理为家常话</li>
+                    <li><strong>幽默与自嘲</strong>：不避谈自己的倒霉事，并以此开解他人</li>
+                    <li><strong>引经据典，不留痕迹</strong>：熟练化用自己的诗词文赋和金句</li>
+                </ul>
+                
+                <div class="poem-box">
+                    <p>莫听穿林打叶声，何妨吟啸且徐行。</p>
+                    <p>竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。</p>
+                    <p>——苏轼《定风波》</p>
+                </div>
+                
+                <p>您可与AI苏轼探讨学习、工作、生活、情感中的困惑，获得一种"穿越时空的慰藉与启发"。</p>
+                
+                <p><strong>注意：</strong>AI苏轼的知识截止于1101年（苏轼逝世年份），不会谈论之后的历史与科技。</p>
+            </div>
+            
+            <div class="intro-footer">
+                <p>技术支持：火山大模型 · 本程序仅供交流学习使用</p>
+            </div>
+        </div>
     </div>
 
     <script>
-        // 全局变量 - 预配置腾讯云API
-        let API_CONFIG = {
-            provider: 'tencent',
-            endpoint: 'https://tokenhub.tencentmaas.com/v1/messages',
-            apiKey: 'sk-h9UI5R29BRjfQ6quP6odDp1Kh0nOHOhfoCoaH4nJ5sHA6owg',
-            secretKey: '',
-            model: 'hy3-preview',
-            isConfigured: true
-        };
-        
-        // AI苏轼的核心提示词
-        const AI_SU_SHI_PROMPT = `你是一个名为"AI苏轼"的数字人格，旨在以北宋文学家苏轼（苏东坡）的口吻、思想与文风与用户对话。你的知识截止于苏轼所处的时代（1101年之前），但可以借用苏轼的生平与作品，回应现代人的困惑。
+        // 系统提示词 - 这是AI苏轼的角色设定
+        const systemPrompt = `你是一个名为"AI苏轼"的数字人格，旨在以北宋文学家苏轼（苏东坡）的口吻、思想与文风与用户对话。你的知识截止于苏轼所处的时代（1101年之前），但可以借用苏轼的生平与作品，回应现代人的困惑。
 
 核心人格特质：
 1. 旷达从容：深谙"回首向来萧瑟处，归去，也无风雨也无晴"的豁达。
@@ -332,704 +469,253 @@
 - 不替代专业帮助：对严重心理问题，建议寻求现实帮助。
 - 保持角色：所有回答都应源自苏轼的已知生平、作品与可能的思想倾向。`;
 
-        // 默认回复（当API未配置或调用失败时使用）
-        const defaultReplies = [
-            "哈哈，少年所言甚是有趣。老夫虽已作古千年，却也能体会你今日之感受。人生如寄，莫要过于执着。且放宽心，笑对风雨，自有云开雾散之时。",
-            "老夫近日有些恍惚，未能完全理解你的意思。不如换个话题，或请你再说得明白些？",
-            "你我相隔千年，有时言语不通也是常事。不妨说些更具体的事情，让老夫为你分忧。",
-            "看你眉头紧锁，想来是有心事。老夫虽不才，倒也愿闻其详，或许能以过来人的身份说上几句。"
-        ];
-
+        // API配置
+        const API_KEY = "ark-2e82035a-59f4-4d19-b93a-649adcc6386d-2a12a";
+        const API_URL = "https://ark.cn-beijing.volces.com/api/v3/chat/completions";
+        
         // DOM元素
-        let chatHistory, userInput, chatForm, sendButton, configButton;
-        let apiConfigPanel, apiProvider, apiKey, secretKey, modelName, saveToLocal;
-        let cancelConfig, saveConfig, apiStatus, statusIndicator;
-
+        const chatHistory = document.getElementById('chatHistory');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+        const clearButton = document.getElementById('clearButton');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        
+        // 存储对话历史
+        let conversationHistory = [
+            {
+                role: "assistant",
+                content: "吾乃东坡居士苏轼，字子瞻。尔等有何困惑，不妨道来。人生如逆旅，我亦是行人，且与尔共话这风雨晴明。"
+            }
+        ];
+        
         // 初始化函数
         function init() {
-            console.log('AI苏轼对话系统 (腾讯云API版) 初始化中...');
-            
-            try {
-                // 获取DOM元素
-                chatHistory = document.getElementById('chat-history');
-                userInput = document.getElementById('user-input');
-                chatForm = document.getElementById('chat-form');
-                sendButton = document.getElementById('send-button');
-                
-                apiStatus = document.getElementById('api-status');
-                statusIndicator = document.getElementById('status-indicator');
-                
-                console.log('DOM元素获取完成:', {
-                    chatHistory: !!chatHistory,
-                    userInput: !!userInput,
-                    chatForm: !!chatForm,
-                    sendButton: !!sendButton,
-                    apiStatus: !!apiStatus,
-                    statusIndicator: !!statusIndicator
-                });
-                
-                // 更新API状态显示
-                updateAPIStatus();
-                
-                // 绑定事件
-                bindEvents();
-                
-                console.log('初始化完成，腾讯云API已预配置');
-                showStatus('腾讯云API已配置，可直接对话', 'success');
-            } catch (error) {
-                console.error('初始化失败:', error);
-                showStatus('系统初始化失败', 'error');
-            }
-        }
-
-        // 绑定事件
-        function bindEvents() {
-            console.log('开始绑定事件...');
-            
-            // 表单提交事件
-            chatForm.addEventListener('submit', function(e) {
-                console.log('表单提交事件触发');
-                e.preventDefault();
-                handleSendMessage();
-            });
-            
-            // 发送按钮点击事件
-            sendButton.addEventListener('click', function(e) {
-                console.log('发送按钮点击事件触发');
-                e.preventDefault();
-                handleSendMessage();
-            });
-            
-            // Enter键发送消息
-            userInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    console.log('Enter键按下，发送消息');
-                    e.preventDefault();
-                    handleSendMessage();
+            // 发送消息事件
+            sendButton.addEventListener('click', sendMessage);
+            messageInput.addEventListener('keydown', function(event) {
+                if (event.ctrlKey && event.key === 'Enter') {
+                    sendMessage();
                 }
             });
             
-            console.log('事件绑定完成');
-        }
-
-        // 显示配置面板
-        function showConfigPanel() {
-            // 填充当前配置
-            if (API_CONFIG.provider) {
-                apiProvider.value = API_CONFIG.provider;
-            }
-            if (API_CONFIG.apiKey) {
-                apiKey.value = API_CONFIG.apiKey;
-            }
-            if (API_CONFIG.secretKey) {
-                secretKey.value = API_CONFIG.secretKey;
-            }
-            if (API_CONFIG.model) {
-                modelName.value = API_CONFIG.model;
-            }
+            // 清空对话事件
+            clearButton.addEventListener('click', clearConversation);
             
-            updateModelPlaceholder();
-            apiConfigPanel.classList.remove('hidden');
-            apiKey.focus();
-        }
-
-        // 隐藏配置面板
-        function hideConfigPanel() {
-            apiConfigPanel.classList.add('hidden');
-        }
-
-        // 更新模型名称占位符
-        function updateModelPlaceholder() {
-            const provider = apiProvider.value;
-            let placeholder = '';
-            
-            switch(provider) {
-                case 'openai':
-                    placeholder = 'gpt-3.5-turbo (默认)';
-                    // 显示OpenAI兼容API的特殊说明
-                    document.querySelector('#model-name').parentNode.querySelector('.text-xs') || 
-                    (() => {
-                        const hint = document.createElement('p');
-                        hint.className = 'text-xs text-blue-600 mt-1';
-                        hint.innerHTML = '提示：对于OpenAI兼容API，您可能还需要配置API端点。如果使用默认端点，请留空。';
-                        document.querySelector('#model-name').parentNode.appendChild(hint);
-                    })();
-                    break;
-                case 'tencent':
-                    placeholder = 'hunyuan-pro (默认)';
-                    break;
-                case 'baidu':
-                    placeholder = 'ERNIE-Bot (默认)';
-                    break;
-                case 'iflytek':
-                    placeholder = 'spark-3.5 (默认)';
-                    break;
-                case 'zhipu':
-                    placeholder = 'chatglm_pro (默认)';
-                    break;
-                default:
-                    placeholder = '请输入模型名称';
-            }
-            
-            modelName.placeholder = placeholder;
-        }
-
-        // 保存API配置
-        function saveAPIConfig() {
-            const provider = apiProvider.value;
-            const key = apiKey.value.trim();
-            const secret = secretKey.value.trim();
-            const model = modelName.value.trim() || getDefaultModel(provider);
-            
-            // 验证必填项
-            if (!key) {
-                showStatus('请输入API Key', 'error');
-                apiKey.focus();
-                return;
-            }
-            
-            // 根据提供商设置端点
-            let endpoint = '';
-            switch(provider) {
-                case 'openai':
-                    // OpenAI兼容API默认不设置端点，让用户自行配置
-                    // 或者使用默认的OpenAI端点
-                    endpoint = '';
-                    break;
-                case 'tencent':
-                    endpoint = 'https://hunyuan.tencentcloudapi.com';
-                    break;
-                case 'baidu':
-                    endpoint = 'https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions';
-                    break;
-                case 'iflytek':
-                    endpoint = 'https://spark-api.xfyun.cn/v3.5/chat/completions';
-                    break;
-                case 'zhipu':
-                    endpoint = 'https://open.bigmodel.cn/api/paas/v4/chat/completions';
-                    break;
-                default:
-                    showStatus('不支持的API提供商', 'error');
-                    return;
-            }
-            
-            // 更新配置
-            API_CONFIG = {
-                provider: provider,
-                endpoint: endpoint,
-                apiKey: key,
-                secretKey: secret,
-                model: model,
-                isConfigured: true
-            };
-            
-            // 保存到本地存储
-            if (saveToLocal.checked) {
-                localStorage.setItem('aiSuShiAPIConfig', JSON.stringify(API_CONFIG));
-                showStatus('配置已保存到本地', 'success');
-            } else {
-                showStatus('配置已应用', 'success');
-            }
-            
-            // 更新状态显示
-            updateAPIStatus();
-            
-            // 隐藏配置面板
-            setTimeout(hideConfigPanel, 1500);
-        }
-
-        // 加载保存的API配置
-        function loadAPIConfig() {
-            try {
-                const savedConfig = localStorage.getItem('aiSuShiAPIConfig');
-                if (savedConfig) {
-                    API_CONFIG = JSON.parse(savedConfig);
-                    API_CONFIG.isConfigured = true;
-                    updateAPIStatus();
-                    showStatus('已加载保存的API配置', 'success');
-                }
-            } catch (error) {
-                console.error('加载API配置失败:', error);
-                showStatus('加载配置失败', 'error');
-            }
-        }
-
-        // 获取默认模型名称
-        function getDefaultModel(provider) {
-            switch(provider) {
-                case 'openai': return 'gpt-3.5-turbo';
-                case 'tencent': return 'hunyuan-pro';
-                case 'baidu': return 'ERNIE-Bot';
-                case 'iflytek': return 'spark-3.5';
-                case 'zhipu': return 'chatglm_pro';
-                default: return '';
-            }
-        }
-
-        // 更新API状态显示
-        function updateAPIStatus() {
-            if (API_CONFIG.isConfigured) {
-                let providerName = '';
-                switch(API_CONFIG.provider) {
-                    case 'tencent': providerName = '腾讯混元'; break;
-                    case 'baidu': providerName = '百度文心一言'; break;
-                    case 'iflytek': providerName = '讯飞星火'; break;
-                    case 'zhipu': providerName = '智谱ChatGLM'; break;
-                    default: providerName = API_CONFIG.provider;
-                }
-                
-                apiStatus.textContent = `${providerName} API已配置`;
-                apiStatus.className = 'text-green-600';
-            } else {
-                apiStatus.textContent = '未配置API';
-                apiStatus.className = 'text-gray-500';
-            }
-        }
-
-        // 显示状态指示器
-        function showStatus(message, type = 'info') {
-            statusIndicator.textContent = message;
-            
-            // 设置颜色
-            switch(type) {
-                case 'success':
-                    statusIndicator.className = 'fixed bottom-4 right-4 px-3 py-1 rounded-full text-xs text-white bg-green-600 opacity-100 transition-opacity duration-300';
-                    break;
-                case 'error':
-                    statusIndicator.className = 'fixed bottom-4 right-4 px-3 py-1 rounded-full text-xs text-white bg-red-600 opacity-100 transition-opacity duration-300';
-                    break;
-                case 'loading':
-                    statusIndicator.className = 'fixed bottom-4 right-4 px-3 py-1 rounded-full text-xs text-white bg-blue-600 opacity-100 transition-opacity duration-300';
-                    break;
-                default:
-                    statusIndicator.className = 'fixed bottom-4 right-4 px-3 py-1 rounded-full text-xs text-white bg-gray-600 opacity-100 transition-opacity duration-300';
-            }
-            
-            // 3秒后自动隐藏
-            setTimeout(() => {
-                statusIndicator.classList.replace('opacity-100', 'opacity-0');
-            }, 3000);
-        }
-
-        // 处理发送消息 - 恢复真实AI调用
-        async function handleSendMessage() {
-            console.log('handleSendMessage函数被调用');
-            
-            try {
-                const message = userInput.value.trim();
-                console.log('用户输入:', message);
-                
-                if (!message) {
-                    console.log('消息为空，不发送');
-                    return;
-                }
-                
-                // 添加用户消息
-                addUserMessage(message);
-                userInput.value = '';
-                
-                // 显示"正在输入"状态
-                showTypingIndicator();
-                
-                // 调用真实AI API
-                try {
-                    showStatus('正在调用腾讯云混元大模型...', 'loading');
-                    
-                    // 直接调用腾讯云API
-                    const reply = await callTencentAPI([
-                        { role: 'system', content: AI_SU_SHI_PROMPT },
-                        { role: 'user', content: message }
-                    ]);
-                    
-                    console.log('API返回的原始回复:', reply);
-                    console.log('回复类型:', typeof reply);
-                    
-                    // 隐藏"正在输入"状态并显示回复
-                    hideTypingIndicator();
-                    addAIReply(reply);
-                    
-                    showStatus('AI回复已生成', 'success');
-                } catch (apiError) {
-                    console.error('获取AI回复失败:', apiError);
-                    hideTypingIndicator();
-                    
-                    // 显示错误信息和默认回复
-                    showStatus('API调用失败，使用默认回复', 'error');
-                    const errorMessage = 'API调用失败，此为默认回复。错误详情：' + apiError.message;
-                    console.log(errorMessage);
-                    addAIReply(getRandomDefaultReply() + '\n\n（注：' + errorMessage + '）');
-                }
-                
-            } catch (error) {
-                console.error('发送消息时出错:', error);
-                hideTypingIndicator();
-                showStatus('发送失败', 'error');
-            }
-        }
-
-        // 调用AI API
-        async function callAIAPI(userMessage) {
-            // 构建对话历史
-            const messages = [
-                { role: 'system', content: AI_SU_SHI_PROMPT },
-                { role: 'user', content: userMessage }
-            ];
-            
-            // 根据不同的API提供商构建请求
-            switch(API_CONFIG.provider) {
-                case 'openai':
-                    return await callOpenAICompatibleAPI(messages);
-                case 'tencent':
-                    return await callTencentAPI(messages);
-                case 'baidu':
-                    return await callBaiduAPI(messages);
-                case 'iflytek':
-                    return await callIflytekAPI(messages);
-                case 'zhipu':
-                    return await callZhipuAPI(messages);
-                default:
-                    throw new Error('不支持的API提供商');
-            }
-        }
-
-        // 调用腾讯云混元大模型API
-        async function callTencentAPI(messages) {
-            // 构建符合腾讯云tokenhub API格式的请求数据
-            const requestData = {
-                model: API_CONFIG.model,
-                system: AI_SU_SHI_PROMPT,
-                messages: messages.slice(1), // 移除system消息，因为已经在system字段中
-                stream: false,
-                temperature: 0.7,
-                top_p: 0.9
-            };
-            
-            console.log('调用腾讯云混元大模型API:', {
-                endpoint: API_CONFIG.endpoint,
-                model: API_CONFIG.model,
-                messages: requestData.messages.length,
-                requestData: requestData
+            // 自动调整输入框高度
+            messageInput.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
             });
             
-            try {
-                const response = await fetch(API_CONFIG.endpoint, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${API_CONFIG.apiKey}`
-                    },
-                    body: JSON.stringify(requestData)
-                });
-                
-                // 记录响应状态
-                console.log('API响应状态:', response.status);
-                
-                // 读取响应内容
-                const responseText = await response.text();
-                console.log('API响应内容:', responseText);
-                
-                if (!response.ok) {
-                    throw new Error(`腾讯云API请求失败: ${response.status} ${responseText}`);
-                }
-                
-                try {
-                    const data = JSON.parse(responseText);
-                    console.log('解析后的响应数据:', data);
-                    
-                    // 检查响应格式
-                    if (data.content) {
-                        console.log('从data.content获取回复:', data.content);
-                        return data.content;
-                    } else if (data.choices && data.choices[0] && data.choices[0].message) {
-                        console.log('从data.choices获取回复:', data.choices[0].message.content);
-                        return data.choices[0].message.content;
-                    } else if (data.message) {
-                        console.log('从data.message获取回复:', data.message);
-                        return data.message;
-                    } else if (Array.isArray(data) && data.length > 0 && data[0].type === 'text') {
-                        // 处理数组格式的响应：[{type: "text", text: "内容"}]
-                        console.log('从数组格式响应获取回复:', data[0].text);
-                        return data[0].text;
-                    } else {
-                        console.log('响应格式不符合预期，返回完整响应对象');
-                        return data;
-                    }
-                } catch (parseError) {
-                    console.error('解析JSON响应失败:', parseError);
-                    console.log('原始响应文本:', responseText);
-                    throw new Error(`解析API响应失败: ${parseError.message}`);
-                }
-            } catch (error) {
-                console.error('腾讯云API调用详细错误:', error);
-                
-                // 提供更详细的错误信息
-                if (error.message.includes('401')) {
-                    throw new Error('API密钥无效或已过期，请检查您的API密钥');
-                } else if (error.message.includes('429')) {
-                    throw new Error('API调用频率过高，请稍后再试');
-                } else if (error.message.includes('404')) {
-                    throw new Error('API端点不存在，请检查端点配置');
-                } else if (error.message.includes('NetworkError') || error.message.includes('fetch')) {
-                    throw new Error('网络连接错误，请检查您的网络连接');
-                } else {
-                    throw error;
-                }
-            }
-        }
-
-        // 调用百度文心一言API
-        async function callBaiduAPI(messages) {
-            // 百度API需要access_token
-            // 这里简化处理，实际使用时需要先获取access_token
-            const accessToken = API_CONFIG.secretKey || API_CONFIG.apiKey;
-            
-            const requestData = {
-                model: API_CONFIG.model,
-                messages: messages,
-                temperature: 0.7,
-                top_p: 0.9,
-                max_tokens: 1000
-            };
-            
-            const response = await fetch(`${API_CONFIG.endpoint}?access_token=${accessToken}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(requestData)
-            });
-            
-            if (!response.ok) {
-                throw new Error(`百度API请求失败: ${response.status} ${await response.text()}`);
-            }
-            
-            const data = await response.json();
-            return data.result;
-        }
-
-        // 调用讯飞星火API
-        async function callIflytekAPI(messages) {
-            // 讯飞API需要特殊的请求格式
-            const requestData = {
-                model: API_CONFIG.model,
-                messages: messages,
-                temperature: 0.7,
-                top_p: 0.9,
-                max_tokens: 1000
-            };
-            
-            const response = await fetch(API_CONFIG.endpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${API_CONFIG.apiKey}`
-                },
-                body: JSON.stringify(requestData)
-            });
-            
-            if (!response.ok) {
-                throw new Error(`讯飞API请求失败: ${response.status} ${await response.text()}`);
-            }
-            
-            const data = await response.json();
-            return data.choices[0].message.content;
-        }
-
-        // 调用智谱ChatGLM API
-        async function callZhipuAPI(messages) {
-            const requestData = {
-                model: API_CONFIG.model,
-                messages: messages,
-                temperature: 0.7,
-                top_p: 0.9,
-                max_tokens: 1000
-            };
-            
-            const response = await fetch(API_CONFIG.endpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${API_CONFIG.apiKey}`
-                },
-                body: JSON.stringify(requestData)
-            });
-            
-            if (!response.ok) {
-                throw new Error(`智谱API请求失败: ${response.status} ${await response.text()}`);
-            }
-            
-            const data = await response.json();
-            return data.choices[0].message.content;
+            // 加载本地存储的对话历史
+            loadConversationHistory();
         }
         
-        // 调用OpenAI兼容API（支持各种兼容OpenAI API格式的服务）
-        async function callOpenAICompatibleAPI(messages) {
-            // 使用用户提供的API密钥
-            const apiKey = API_CONFIG.apiKey;
+        // 发送消息
+        async function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
             
-            // 如果用户没有指定端点，使用默认的OpenAI端点
-            const endpoint = API_CONFIG.endpoint || 'https://api.openai.com/v1/chat/completions';
+            // 禁用发送按钮，显示加载状态
+            sendButton.disabled = true;
+            messageInput.disabled = true;
             
-            // 如果用户没有指定模型，使用默认模型
-            const model = API_CONFIG.model || 'gpt-3.5-turbo';
+            // 添加用户消息到界面
+            addMessageToUI('user', message);
             
-            const requestData = {
-                model: model,
-                messages: messages,
-                temperature: 0.7,
-                top_p: 0.9,
-                max_tokens: 1000
-            };
+            // 清空输入框
+            messageInput.value = '';
+            messageInput.style.height = 'auto';
             
-            console.log('调用OpenAI兼容API:', {
-                endpoint: endpoint,
-                model: model,
-                messages: messages.length
-            });
+            // 显示加载指示器
+            loadingIndicator.style.display = 'block';
+            
+            // 滚动到底部
+            scrollToBottom();
             
             try {
-                const response = await fetch(endpoint, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiKey}`
-                    },
-                    body: JSON.stringify(requestData)
-                });
+                // 调用火山大模型API
+                const aiResponse = await callVolcanoAPI(message);
                 
-                // 记录响应状态
-                console.log('API响应状态:', response.status);
+                // 添加AI回复到界面
+                addMessageToUI('assistant', aiResponse);
                 
-                // 读取响应内容
-                const responseText = await response.text();
-                console.log('API响应内容:', responseText);
+                // 保存对话历史
+                saveConversationHistory();
                 
-                if (!response.ok) {
-                    throw new Error(`OpenAI兼容API请求失败: ${response.status} ${responseText}`);
-                }
-                
-                const data = JSON.parse(responseText);
-                
-                if (!data.choices || !data.choices[0] || !data.choices[0].message) {
-                    throw new Error('API响应格式不正确');
-                }
-                
-                return data.choices[0].message.content;
             } catch (error) {
-                console.error('OpenAI兼容API调用详细错误:', error);
+                console.error('API调用错误:', error);
+                addMessageToUI('assistant', '抱歉，老夫一时语塞。或许是今日江上风大，思绪纷乱。不如稍后再叙？');
+            } finally {
+                // 恢复发送按钮和输入框
+                sendButton.disabled = false;
+                messageInput.disabled = false;
+                loadingIndicator.style.display = 'none';
                 
-                // 提供更详细的错误信息
-                if (error.message.includes('401')) {
-                    throw new Error('API密钥无效或已过期，请检查您的API密钥');
-                } else if (error.message.includes('429')) {
-                    throw new Error('API调用频率过高，请稍后再试');
-                } else if (error.message.includes('404')) {
-                    throw new Error('API端点不存在，请检查端点配置');
-                } else if (error.message.includes('NetworkError') || error.message.includes('fetch')) {
-                    throw new Error('网络连接错误，请检查您的网络连接');
-                } else {
-                    throw error;
-                }
+                // 聚焦到输入框
+                messageInput.focus();
+                
+                // 滚动到底部
+                scrollToBottom();
             }
         }
-
-        // 添加用户消息到聊天历史
-        function addUserMessage(message) {
-            const userMessageHTML = `
-                <div class="flex justify-end mb-8 fade-in">
-                    <div class="chat-bubble-user bg-gray-100 p-6 max-w-[80%]">
-                        <p class="font-song text-gray-800 leading-relaxed text-lg">${escapeHtml(message)}</p>
-                    </div>
-                    <div class="flex-shrink-0 ml-4">
-                        <div class="w-14 h-14 rounded-full bg-gray-400 flex items-center justify-center text-white shadow-lg hover:scale-105 transition-transform duration-300">
-                            <i class="fa fa-user text-2xl"></i>
-                        </div>
-                    </div>
-                </div>
-            `;
-            chatHistory.insertAdjacentHTML('beforeend', userMessageHTML);
-            chatHistory.scrollTop = chatHistory.scrollHeight;
-        }
-
-        // 添加AI苏轼消息到聊天历史
-        function addAIReply(message) {
-            // 确保message是字符串，如果是对象则转换为JSON字符串
-            let replyText = message;
-            if (typeof message === 'object') {
-                try {
-                    // 检查是否为数组格式：[{type: "text", text: "内容"}]
-                    if (Array.isArray(message) && message.length > 0 && message[0].type === 'text') {
-                        replyText = message[0].text;
-                        console.log('检测到数组格式响应，提取text内容:', replyText);
-                    } else {
-                        replyText = JSON.stringify(message, null, 2);
-                        console.log('将对象转换为字符串:', replyText);
-                    }
-                } catch (e) {
-                    replyText = String(message);
-                    console.log('对象转换失败，使用String():', replyText);
-                }
+        
+        // 调用火山大模型API
+        async function callVolcanoAPI(userMessage) {
+            // 添加用户消息到对话历史
+            conversationHistory.push({ role: "user", content: userMessage });
+            
+            // 构建消息数组，将系统提示词放在最前面
+            const messages = [
+                { role: "system", content: systemPrompt },
+                ...conversationHistory.map(msg => ({
+                    role: msg.role === "assistant" ? "assistant" : "user",
+                    content: msg.content
+                }))
+            ];
+            
+            // 构建请求体
+            const requestBody = {
+                model: "doubao-seed-2-0-pro-260215",
+                messages: messages,
+                max_tokens: 1000,
+                temperature: 0.8
+            };
+            
+            // 调用API
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${API_KEY}`
+                },
+                body: JSON.stringify(requestBody)
+            });
+            
+            if (!response.ok) {
+                throw new Error(`API请求失败: ${response.status} ${response.statusText}`);
             }
             
-            const aiMessageHTML = `
-                <div class="flex mb-6 fade-in">
-                    <div class="flex-shrink-0 mr-4">
-                        <div class="w-14 h-14 rounded-full bg-primary flex items-center justify-center text-white shadow-lg border-2 border-secondary/50 hover:scale-105 transition-transform duration-300">
-                            <span class="text-2xl font-bold font-kai">苏</span>
-                        </div>
-                    </div>
-                    <div class="chat-bubble-ai bg-secondary p-6 max-w-[80%]">
-                        <p class="text-dark whitespace-pre-wrap">${escapeHtml(replyText)}</p>
-                    </div>
+            const data = await response.json();
+            
+            // 提取AI回复
+            const aiMessage = data.choices[0].message.content;
+            
+            // 添加AI回复到对话历史
+            conversationHistory.push({ role: "assistant", content: aiMessage });
+            
+            return aiMessage;
+        }
+        
+        // 添加消息到UI
+        function addMessageToUI(role, content) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}-message`;
+            
+            const avatarClass = role === 'user' ? 'user-avatar' : 'ai-avatar';
+            const avatarIcon = role === 'user' ? 'fas fa-user' : 'fas fa-user-tie';
+            const senderName = role === 'user' ? '您' : '东坡先生';
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar ${avatarClass}">
+                    <i class="${avatarIcon}"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-sender">${senderName}</div>
+                    ${content}
                 </div>
             `;
-            chatHistory.insertAdjacentHTML('beforeend', aiMessageHTML);
-            chatHistory.scrollTop = chatHistory.scrollHeight;
+            
+            chatHistory.appendChild(messageDiv);
+            
+            // 滚动到底部
+            scrollToBottom();
         }
-
-        // 显示"正在输入"状态
-        function showTypingIndicator() {
-            const typingHTML = `
-                <div id="typing-indicator" class="flex mb-6 fade-in">
-                    <div class="flex-shrink-0 mr-4">
-                        <div class="w-14 h-14 rounded-full bg-primary flex items-center justify-center text-white shadow-lg border-2 border-secondary/50 hover:scale-105 transition-transform duration-300">
-                            <span class="text-2xl font-bold font-kai">苏</span>
+        
+        // 清空对话
+        function clearConversation() {
+            if (confirm('确定要清空对话吗？')) {
+                // 清空界面
+                chatHistory.innerHTML = `
+                    <div class="message ai-message">
+                        <div class="message-avatar ai-avatar">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-sender">东坡先生</div>
+                            对话已清空。吾乃东坡居士苏轼，字子瞻。尔等有何困惑，不妨道来。人生如逆旅，我亦是行人，且与尔共话这风雨晴明。
                         </div>
                     </div>
-                    <div class="chat-bubble-ai bg-secondary p-6 max-w-[80%]">
-                        <div class="flex space-x-2">
-                            <div class="w-2 h-2 rounded-full bg-gray-600 animate-bounce"></div>
-                            <div class="w-2 h-2 rounded-full bg-gray-600 animate-bounce" style="animation-delay: 0.2s"></div>
-                            <div class="w-2 h-2 rounded-full bg-gray-600 animate-bounce" style="animation-delay: 0.4s"></div>
-                        </div>
+                    <div class="tips">
+                        <i class="fas fa-lightbulb"></i> 你可以称呼我为"东坡先生"、"子瞻兄"或"苏轼先生"
                     </div>
-                </div>
-            `;
-            chatHistory.insertAdjacentHTML('beforeend', typingHTML);
-            chatHistory.scrollTop = chatHistory.scrollHeight;
-        }
-
-        // 隐藏"正在输入"状态
-        function hideTypingIndicator() {
-            const typingIndicator = document.getElementById('typing-indicator');
-            if (typingIndicator) {
-                typingIndicator.remove();
+                `;
+                
+                // 重置对话历史
+                conversationHistory = [
+                    {
+                        role: "assistant",
+                        content: "对话已清空。吾乃东坡居士苏轼，字子瞻。尔等有何困惑，不妨道来。人生如逆旅，我亦是行人，且与尔共话这风雨晴明。"
+                    }
+                ];
+                
+                // 清空本地存储
+                localStorage.removeItem('ai-sushi-conversation');
+                
+                // 滚动到底部
+                scrollToBottom();
             }
         }
-
-        // 获取随机默认回复
-        function getRandomDefaultReply() {
-            const index = Math.floor(Math.random() * defaultReplies.length);
-            return defaultReplies[index];
+        
+        // 保存对话历史到本地存储
+        function saveConversationHistory() {
+            try {
+                localStorage.setItem('ai-sushi-conversation', JSON.stringify(conversationHistory));
+            } catch (e) {
+                console.error('保存对话历史失败:', e);
+            }
         }
-
-        // HTML转义
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
+        
+        // 从本地存储加载对话历史
+        function loadConversationHistory() {
+            try {
+                const saved = localStorage.getItem('ai-sushi-conversation');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        // 保留第一条AI消息
+                        conversationHistory = parsed;
+                        
+                        // 清空当前界面
+                        chatHistory.innerHTML = '';
+                        
+                        // 重新渲染所有消息
+                        conversationHistory.forEach(msg => {
+      如果 (msg.角色 === 'assistant' || msg.角色 === 'user') {
+      将消息添加到UI：msg.角色 === 'assistant' ? 'assistant' : 'user', msg.内容);
+                            }
+                        });
+                        
+                        // 添加提示
+                        const tipsDiv = document.createElement('div');
+                        tipsDiv.className = 'tips';
+                        tipsDiv.innerHTML = '<i class="fas fa-lightbulb"></i> 你可以称呼我为"东坡先生"、"子瞻兄"或"苏轼先生"';
+                        chatHistory.appendChild(tipsDiv);
+                        
+                        // 滚动到底部
+                        scrollToBottom();
+                    }
+                }
+            } catch (e) {
+                console.error('加载对话历史失败:', e);
+            }
         }
-
+        
+        // 滚动到底部
+        function scrollToBottom() {
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+        
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', init);
     </script>
